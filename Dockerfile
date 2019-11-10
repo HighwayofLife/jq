@@ -2,15 +2,15 @@ FROM alpine:3.10
 
 RUN apk --no-cache --virtual build add \
   flex bison libtool make automake autoconf \
-  oniguruma build-base
+  oniguruma-dev build-base git
 
 COPY . /app
 
 WORKDIR /app
 
 RUN autoreconf -fi \
-  && ./configure --with-oniguruma --disable-docs --disable-maintainer-mode \
-    --disable-valgrind --enable-all-static --prefix=/usr/local \
+  && ./configure --disable-valgrind --enable-all-static --prefix=/usr/local \
+    --with-oniguruma --disable-docs --disable-maintainer-mode \
   && make -j8 && make install \
   && apk del build
 
