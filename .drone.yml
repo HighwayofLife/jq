@@ -3,10 +3,22 @@ kind: pipeline
 name: default
 
 steps:
-- name: build
+- name: version
   image: alpine:3.10
   commands:
-      - ./scripts/version > .tags
+    - apk add git
+    - ./scripts/version > .tags
+  when:
+    branch:
+    - master
+    event:
+    - push
+
+- name: build
+  image: deck15/drone-kaniko:v0.4.2
+  when:
+    branch:
+      excludes: master
 
 - name: publish
   image: deck15/drone-kaniko:v0.4.2
@@ -16,3 +28,9 @@ steps:
       from_secret: docker-username
     password:
       from_secret: docker-password
+  when:
+    branch:
+    - master
+    event:
+    - push
+
