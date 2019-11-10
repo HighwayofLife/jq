@@ -1,7 +1,5 @@
 FROM alpine:3.10
 
-ARG JQ_VERSION=1.7
-
 RUN apk --no-cache --virtual build add \
   flex bison libtool make automake autoconf \
   oniguruma-dev build-base git
