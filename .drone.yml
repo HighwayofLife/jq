@@ -8,11 +8,6 @@ steps:
   commands:
     - apk add git
     - ./scripts/version > .tags
-  when:
-    branch:
-    - master
-    event:
-    - push
 
 - name: publish
   image: deck15/drone-kaniko:v0.4.2
@@ -22,9 +17,8 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-  when:
-    branch:
-    - master
-    event:
-    - push
 
+trigger:
+  event:
+  - tag
+...
