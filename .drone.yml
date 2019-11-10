@@ -1,0 +1,18 @@
+---
+kind: pipeline
+name: default
+
+steps:
+- name: build
+  image: alpine:3.10
+  commands:
+      - ./scripts/version > .tags
+
+- name: publish
+  image: deck15/drone-kaniko:v0.4.2
+  settings:
+    repo: deck15/jq
+    username:
+      from_secret: docker-username
+    password:
+      from_secret: docker-password
