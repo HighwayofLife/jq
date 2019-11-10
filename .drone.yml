@@ -19,9 +19,9 @@ steps:
   settings:
     repo: deck15/jq
     username:
-      from_secret: docker-username
+      from_secret: docker_username
     password:
-      from_secret: docker-password
+      from_secret: docker_password
   when:
     branch:
     - master
