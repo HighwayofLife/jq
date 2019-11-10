@@ -14,12 +14,6 @@ steps:
     event:
     - push
 
-- name: build
-  image: deck15/drone-kaniko:v0.4.2
-  when:
-    branch:
-      excludes: master
-
 - name: publish
   image: deck15/drone-kaniko:v0.4.2
   settings:
